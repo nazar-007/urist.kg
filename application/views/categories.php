@@ -128,7 +128,9 @@
                 <form method="post" action="javascript:void(0)" onsubmit="insertTheme(this)">
                     <input type="hidden" class="csrf" name="csrf_test_name" value="<?php echo $csrf_hash?>">
                     <label>Название темы:</label>
-                    <input required type="text" class="form-control" name="category_name">
+                    <input required type="text" class="form-control" name="theme_name">
+                    <label>Описание темы:</label>
+                    <textarea required cols="5" class="form-control" name="theme_desc"></textarea>
                     <label>Категория:</label>
                     <select required name="category_id">
                         <option value="">Выберите категорию</option>

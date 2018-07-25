@@ -106,14 +106,16 @@ class Themes extends CI_Controller {
     }
     public function insert_theme() {
         $theme_name = $this->input->post('theme_name');
-        $forum_id = $this->input->post('forum_id');
+        $theme_desc = $this->input->post('theme_desc');
+        $category_id = $this->input->post('category_id');
         $data = array(
             'theme_name' => $theme_name,
+            'theme_desc' => $theme_desc,
             'comments' => 0,
             'views' => 0,
             'likes' => 0,
             'theme_date' => date('d.m.Y'),
-            'forum_id' => $forum_id
+            'category_id' => $category_id
         );
         $this->themes_model->insertTheme($data);
         $insert_id = $this->db->insert_id();

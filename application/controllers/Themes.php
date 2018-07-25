@@ -38,6 +38,36 @@ class Themes extends CI_Controller {
         );
         $this->load->view('one_theme', $one_theme);
     }
+
+    public function search_themes() {
+        $theme_name = $this->input->post('theme_name');
+        $themes = $this->themes_model->searchThemesByThemeName($theme_name);
+        $html = '<h3>Результаты по поиску ' . $theme_name . '</h3>';
+
+        foreach ($themes as $theme) {
+            $html .= "<tbody><tr class='success'>
+                    <td>
+                        <a id='a_$theme->id' href='" . base_url() . "one_theme/$theme->id'>" . $theme->theme_name . "</a>
+                    </td>
+                    <td>
+                        $theme->comments комментов
+                    </td>
+                    <td>
+                        $theme->views просмотров
+                    </td>
+                    <td>
+                        $theme->likes лайков
+                    </td>
+                 </tr></tbody>";
+        }
+
+        $json = array(
+            'themes' => $html,
+            'csrf_hash' => $this->security->get_csrf_hash()
+        );
+        echo json_encode($json);
+    }
+
     public function Sort_themes() {
 
         // $order_by приходит из data-order_by при клике на соответствующую кнопку

@@ -50,6 +50,12 @@
             </table>
         </div>
         <div class="col-lg-9 col-md-9">
+            <form action="javascript:void(0)" onsubmit="searchThemes(this)">
+                <input type="hidden" class="csrf" name="csrf_test_name" value="<?php echo $csrf_hash?>">
+                <input required type="text" name="theme_name" size="70" placeholder="Поиск тем">
+                <button type="submit">Искать</button>
+            </form>
+
             <button onclick="sortThemes(this)" class="order_by" data-id="0" data-order_by="comments desc">Комментируемые</button>
             <button onclick="sortThemes(this)" class="order_by" data-id="1" data-order_by="views desc">Просматриваемые</button>
             <button onclick="sortThemes(this)" class="order_by" data-id="2" data-order_by="likes desc">Популярные</button>
@@ -112,6 +118,22 @@
 
 
 <script>
+
+    function searchThemes(context) {
+        var form = $(context)[0];
+        var all_inputs = new FormData(form);
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url()?>" + "themes/search_themes",
+            data: all_inputs,
+            dataType: "JSON",
+            contentType: false,
+            processData: false
+        }).done(function (message) {
+            $(".csrf").val(message.csrf_hash); // обрати внимание, что таким образом меняются все токены CSRF c классом csrf.
+            $("#table_themes").html(message.themes);
+        })
+    }
 
     function sortThemes(context) {
         var id = context.getAttribute('data-id');

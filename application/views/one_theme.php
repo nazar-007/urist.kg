@@ -34,6 +34,7 @@
     <input class="csrf" value="<?php echo $csrf_hash?>"> 
 <?php echo "</pre>" ?>
 <div class="container">
+    <a href="<?php echo base_url()?>categories">На главную</a>
     <div class="row">
         <div class="col-lg-3 col-md-9">
             <table id="table_categories" border="1">

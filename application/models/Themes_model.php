@@ -48,6 +48,12 @@ class Themes_model extends CI_Model {
         return $comments;
     }
 
+    public function searchThemesByThemeName($theme_name) {
+        $this->db->like('theme_name', $theme_name);
+        $query = $this->db->get('themes');
+        return $query->result();
+    }
+
     public function insertTheme($data) {
         $this->db->insert('themes', $data);
     }

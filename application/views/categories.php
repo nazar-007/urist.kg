@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertCategory">Добавить категорию</button>
-            <table class="table" id="table"  >
+            <table class="table" id="table">
  
                 <?php
                 foreach ($categories as $category) {
@@ -38,7 +38,7 @@
 
     <tbody>
       <tr class="info" id='ul_<?php echo $category_id?>'>
-          <td><a href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a></td>
+          <td><a href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a></td>0
       </tr>
     </tbody>
 
@@ -79,13 +79,22 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><?php echo $cats_themes[$i]['0']['theme_name'] ?></td>
+                      <td><?php echo $cats_themes[$i]['0']['theme_name'] ?></td>
+                      <td><?php echo $cats_themes[$i]['0']['comments'] ?> комментов</td>
+                      <td><?php echo $cats_themes[$i]['0']['views'] ?> просмотров</td>
+                      <td><?php echo $cats_themes[$i]['0']['likes'] ?> лайков</td>
                   </tr>
                   <tr>
-                    <td><?php echo $cats_themes[$i]['1']['theme_name'] ?></td>
+                      <td><?php echo $cats_themes[$i]['1']['theme_name'] ?></td>
+                      <td><?php echo $cats_themes[$i]['1']['comments'] ?> комментов</td>
+                      <td><?php echo $cats_themes[$i]['1']['views'] ?> просмотров</td>
+                      <td><?php echo $cats_themes[$i]['1']['likes'] ?> лайков</td>
                   </tr>
                   <tr>
-                    <td><?php echo $cats_themes[$i]['2']['theme_name'] ?></td>
+                      <td><?php echo $cats_themes[$i]['2']['theme_name'] ?></td>
+                      <td><?php echo $cats_themes[$i]['2']['comments'] ?> комментов</td>
+                      <td><?php echo $cats_themes[$i]['2']['views'] ?> просмотров</td>
+                      <td><?php echo $cats_themes[$i]['2']['likes'] ?> лайков</td>
                   </tr>
                 </tbody>
                 <?php $i++;}?>
@@ -221,10 +230,6 @@
     }
 
 
-    $( document ).ready(function() {
-        console.log('refresh');
-    });
-    
     function insertCategory(context) {
         var form = $(context)[0];
         var all_inputs = new FormData(form);

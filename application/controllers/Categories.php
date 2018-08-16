@@ -8,7 +8,6 @@ class Categories extends CI_Controller {
         parent::__construct();
         $this->load->model('categories_model');
         $this->load->model('themes_model');
-        $this->load->model('comments_model');
         $this->load->database();
         $this->input->post(NULL, TRUE);
         $this->input->get(NULL, TRUE);

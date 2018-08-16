@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #f2dede">
 
 <div class="container">
     <div class="row">
@@ -38,12 +38,8 @@
                     } else {
                         echo "<ul id='ul_$category->id'>";
                     }
-                    echo "<li>
-                        <a id='a_$category->id' href='" . base_url() . "themes/$category->id'>" . $category->category_name . "</a>
-                        <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='" . $category->id . "' data-name='" . $category->category_name . "'><span class='glyphicon glyphicon-trash'></span></button>
-                        <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='" . $category->id . "' data-name='" . $category->category_name . "'><span class='glyphicon glyphicon-edit'></span></button>
-                    </li>
-                 </ul>";
+                    echo "<a id='a_$category->id' href='" . base_url() . "themes/$category->id'>" . $category->category_name . "</a>
+                    </ul>";
                 }
                 ?>
                 </tbody>

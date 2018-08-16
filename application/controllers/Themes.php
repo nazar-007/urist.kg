@@ -7,7 +7,6 @@ class Themes extends CI_Controller {
         parent::__construct();
         $this->load->model('categories_model');
         $this->load->model('themes_model');
-        $this->load->model('comments_model');
     }
     public function Index($category_id) {
         $data = array(
@@ -32,7 +31,6 @@ class Themes extends CI_Controller {
         $one_theme = array (
             'categories' => $this->categories_model->getCategories(),
             'one_theme' => $this->themes_model->getOneThemeById($theme_id),
-            'comments' => $this->comments_model->getCommentsByThemeId($theme_id),
             'csrf_hash' => $this->security->get_csrf_hash(),
             "theme_id" => $theme_id
         );

@@ -38,7 +38,7 @@
 
     <tbody>
       <tr class="info" id='ul_<?php echo $category_id?>'>
-          <td><a href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a></td>0
+          <td><a href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a></td>
       </tr>
     </tbody>
 

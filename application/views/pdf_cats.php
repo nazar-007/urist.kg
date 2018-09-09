@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url()?>css/style.css">
+    <script src="<?php echo base_url()?>script/pdf.js"></script>
     <style>
         .order_by_pressed {
             border: 5px solid #5a0099;
@@ -19,32 +20,37 @@
 
 </head>
 <body style="background-color: #f2dede;">
-
 <div class="container">
-    
+   <div><div class="url" data-url="<?php echo base_url()?>"></div></div> 
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-3 col-xs-3">
 
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertTheme">Добавить тему</button><br>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertTheme">Добавить категорию</button><br>
 
-            <table class="table table-bordered" id="table_themes"> 
-                <?php
-                $i = 0;
-                foreach ($categories as $category) {
-                ?>
+            <table class="table table-bordered" id="table_themes" style="background-color:white;"> 
                 <thead>
                   <tr>
-                    <th colspan="3"> ПДФ КАТЕГОРИИ</th>
+                    <th colspan="5" style="background-color:white;"> ПДФ КАТЕГОРИИ</th>
+                  </tr>
+                  <tr>
+                    <th  style="background-color:white;">НАЗВАНИЕ</th>
+                    <th  style="background-color:white;">ОПИСАНИЕ</th>
+                    <th colspan="3" style="background-color:white;">РЕДАКТИРОВАТЬ</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table_themes_body">
+                <?php
+                $i = 1;
+                foreach ($categories as $category) { ?>
                   <tr>
-                      <td><?php echo $i ?></td>
                       <td><?php echo $category['name'] ?></td>
                       <td><?php echo $category['dis'] ?></td>
+                      <td><button  data-id="<?php echo $category['id'] ?>" data-dis="<?php echo $category['dis'] ?>" data-name="<?php echo $category['name'] ?>"  type="button" class="btn btn-info" data-toggle="modal" data-target="#updateTheme" onclick="updateThemeFirst(this)">Изменить категорию</button></td>
+                      <td><button  data-id="<?php echo $category['id'] ?>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCategory" onclick="updateThemeFirst(this)">Удалить категорию</button></td>
+                       <td><a href="<?php echo base_url()?>pdf_category_files/<?php echo $category['id'] ?>"><button type="button" class="btn btn-success"  onclick="updateThemeFirst(this)">Перейти</button></a></td>
                   </tr>
-                </tbody>
                 <?php $i++;}?>
+                </tbody>
             </table>
 
         </div>
@@ -58,21 +64,14 @@
                 <h4 class="modal-title">Добавление темы</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="javascript:void(0)" onsubmit="insertTheme(this)">
+                <form method="post" action="javascript:void(0)" onSubmit="insertTheme(this)">
+                   
                     <input type="hidden" class="csrf" name="csrf_test_name" value="<?php echo $csrf_hash?>">
-                    <label>Название темы:</label>
-                    <input required type="text" class="form-control" name="theme_name">
-                    <label>Описание темы:</label>
-                    <textarea required cols="5" class="form-control" name="theme_desc"></textarea>
-                    <label>Категория:</label>
-                    <select required name="category_id">
-                        <option value="">Выберите категорию</option>
-                        <?php
-                        foreach ($categories as $category) {
-                            echo "<option value='$category->id'>$category->category_name</option>";
-                        }
-                        ?>
-                    </select>
+                    <label>Название категории:</label>
+                    <input required type="text" class="form-control" name="category_name">
+                    <label>Описание категории:</label>
+                    <textarea required cols="5" class="form-control" name="category_dis"></textarea>
+ 
                     <button class="btn btn-success center-block">Добавить</button>
                 </form>
             </div>
@@ -92,7 +91,7 @@
             </div>
             <div class="modal-body">
                 <form onsubmit="deleteCategory(this)" method="post" action="javascript:void(0)">
-                    <h3 id="delete_question"></h3>
+                    <h4 id="delete_question">*ОБРАТИТЕ ВНИМАНИЕ<br>УДАЛЕНИЕ КАТЕГОРИИ УДАЛИТ ВСЕ ФАЙЛЫ ВНУТРИ НЕЕ<br> ОТМЕНИТЬ ЭТО ДЕЙСТВИЕ <span style="color:red;">НЕВОЗМОЖНО</span><br>СОВЕТУЕМ СКАЧАТЬ НУЖНЫ ФАЙЛЫ ПЕРЕД УДАЛЕНИЕМ<br> ЭТО ДЕЙСТВИЕ <span style="color:red;">НЕОБРАТИМО</span> </h4>
                     <div class="form-group">
                         <input class="csrf" type="hidden" name="csrf_test_name" value="<?php echo $csrf_hash; ?>"><br>
                         <input type="hidden" id="delete_id" name="id">
@@ -107,7 +106,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="updateCategory" role="dialog">
+<div class="modal fade" id="updateTheme" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -115,13 +114,17 @@
                 <h4 class="modal-title">Редактирование категории</h4>
             </div>
             <div class="modal-body">
-                <form action="javascript:void(0)" onsubmit="updateCategory(this)">
+                <form action="javascript:void(0)" onsubmit="updateTheme(this)">
+                    *Редактирование никак не взаимодействует с файлами в самой категории
                     <div class="form-group">
                         <input class="csrf" type="hidden" name="csrf_test_name" value="<?php echo $csrf_hash; ?>"><br>
-                        <input type="hidden" name="id" id="update_id">
+                        <input type="hidden" name="category_id" class='zzz' id="update_id">
                         <label for="update_name">Name:</label>
                         <input name="category_name" id="update_name" type="text" class="form-control">
+                        <label for="update_name">Dis:</label>
+                        <textarea name="category_dis" id="update_dis" type="text" class="form-control"></textarea>
                     </div>
+                    
                     <div class="form-group">
                         <button class="btn btn-warning center-block" type="submit">Редактировать</button>
                     </div>

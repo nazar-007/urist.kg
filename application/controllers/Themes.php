@@ -70,13 +70,10 @@ class Themes extends CI_Controller {
 
         // $order_by приходит из data-order_by при клике на соответствующую кнопку
         $order_by = $this->input->post('order_by');
+        $category_id = $this->input->post('category_id');
 
-        $this->db->order_by($order_by);
-        $query = $this->db->get('themes');
-        $themes = $query->result();
+        $themes = $this->themes_model->sortThemesByCategoryId($order_by, $category_id);
         $html = '';
-
-        // беру переменную $html и отправляю её во вьюшку через ajax
 
         foreach ($themes as $theme) {
      

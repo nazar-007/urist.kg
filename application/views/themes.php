@@ -52,9 +52,9 @@
                 <button type="submit">Искать</button>
             </form>
 
-            <button onclick="sortThemes(this)" class="order_by" data-id="0" data-order_by="comments desc">Комментируемые</button>
-            <button onclick="sortThemes(this)" class="order_by" data-id="1" data-order_by="views desc">Просматриваемые</button>
-            <button onclick="sortThemes(this)" class="order_by" data-id="2" data-order_by="likes desc">Популярные</button>
+            <button onclick="sortThemes(this)" class="order_by" data-id="0" data-order_by="comments desc" data-category_id="<?php echo $current_id?>">Комментируемые</button>
+            <button onclick="sortThemes(this)" class="order_by" data-id="1" data-order_by="views desc" data-category_id="<?php echo $current_id?>">Просматриваемые</button>
+            <button onclick="sortThemes(this)" class="order_by" data-id="2" data-order_by="likes desc" data-category_id="<?php echo $current_id?>">Популярные</button>
 
             <table id="table_themes" border="1">
                 <?php
@@ -137,10 +137,11 @@
         $('.order_by').eq(id).addClass('order_by_pressed');
 
         var order_by = context.getAttribute('data-order_by');
+        var category_id = context.getAttribute('data-category_id');
         $.ajax({
             method: "POST",
             url: "<?php echo base_url()?>" + "themes/sort_themes",
-            data: {order_by: order_by, csrf_test_name: $(".csrf").val()},
+            data: {order_by: order_by, category_id: category_id, csrf_test_name: $(".csrf").val()},
             dataType: "JSON"
         }).done(function (message) {
             $(".csrf").val(message.csrf_hash);

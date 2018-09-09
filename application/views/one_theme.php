@@ -10,16 +10,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>One theme</title>
     <style>
-        #comments {
-            margin-bottom: 10px;
-        }
         .one-comment {
             margin-bottom: 10px;
             background-color: #2cc36b;
-            border: 3px solid red;
+            border: 2px solid red;
         }
         .user-info {
-            background-color: seagreen;
+            background-color: royalblue;
         }
         .comment-text {
             font-size: 1.5em;
@@ -61,7 +58,24 @@
             ?>
         </div>
     </div>
+
+    <h3>Comments</h3>
+    <?php
+        foreach ($comments as $comment):
+    ?>
+            <div class="one-comment">
+                <div class="user-info">
+                    <span class="name"><?php echo $comment->name?>, </span>
+                    <span class="mail"><?php echo $comment->mail?>, </span>
+                    <span class="time"><?php echo $comment->time?></span>
+                </div>
+                <div class="comment-text"><?php echo $comment->dis?></div>
+            </div>
+
+    <?php endforeach;?>
 </div>
+
+
 
 </body>
 </html>

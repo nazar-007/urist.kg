@@ -23,6 +23,7 @@
 <body style="background-color: #f2dede">
 
 <div class="container">
+    <a href="<?php echo base_url()?>categories">На главную</a>
     <div class="row">
         <div class="col-lg-3 col-md-9">
             <table id="table_categories" border="1">
@@ -140,7 +141,7 @@
         var category_id = context.getAttribute('data-category_id');
         $.ajax({
             method: "POST",
-            url: "<?php echo base_url()?>" + "themes/sort_themes",
+            url: "<?php echo base_url()?>" + "themes/sort_themes_by_category_id",
             data: {order_by: order_by, category_id: category_id, csrf_test_name: $(".csrf").val()},
             dataType: "JSON"
         }).done(function (message) {

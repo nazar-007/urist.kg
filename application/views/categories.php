@@ -25,34 +25,25 @@
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertCategory">Добавить категорию</button>
-            <table class="table" id="table">
- 
+            <table class="table" id="table_categories">
+                <tbody>
                 <?php
                 foreach ($categories as $category) {
-                    $category_id = $category->id;
-                    ?>
-<!--
-                    // айдишки ul_ нужны для того, чтобы при удалении категории стиралась именно эта категория, а айдишка a_ нужна, чтобы при изменении названия категории менялось названии этой категории
-                    // функция deletePress и updatePress нужны, чтобы при открытии модалки в инпут попадала айдишка именно этой категории
--->
-
-    <tbody>
-      <tr class="info" id='ul_<?php echo $category_id?>'>
-          <td><a href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a></td>
-      </tr>
-    </tbody>
-
-
-<!--
-                    echo "<ul '><li><a id='a_$category->id' href='" . base_url() . "themes/$category->id'>" . $category->category_name . "</a>
-                            <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='" . $category->id ."' data-name='" . $category->category_name ."'><span class='glyphicon glyphicon-trash'></span></button>
-                            <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='" . $category->id ."' data-name='" . $category->category_name ."'><span class='glyphicon glyphicon-edit'></span></button>
-                            <ul>";
-         
--->
-    
-             <?php   }
+                $category_id = $category->id;
+                $category_name = $category->category_name;
                 ?>
+
+                <tr class="info" id='ul_<?php echo $category_id?>'>
+                          <td>
+                              <a id="a_<?php echo $category_id?>" href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a>
+                              <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-trash'></span></button>
+                              <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-edit'></span></button>
+                          </td>
+                    </tr>
+                <?php }
+                ?>
+
+                </tbody>
             </table>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-3 col-xs-3">
@@ -244,13 +235,13 @@
             $(".csrf").val(message.csrf_hash); // обрати внимание, что таким образом меняются все токены CSRF c классом csrf.
             $(".form-control").val('');
             $("#insertCategory").trigger('click');
-            $("#table_categories").append("<ul id='tr_" + message.id + "'>" +
-                "<li>" +
-                    "<a id='" + message.id + "' href='<?php echo base_url()?>themes/" + message.id + "'>" + message.category_name + "</a>" +
+            $("#table_categories").append("<tr class='info' id='ul_" + message.id + "'>" +
+                "<td>" +
+                    "<a id='a_" + message.id + "' href='<?php echo base_url()?>themes/" + message.id + "'>" + message.category_name + "</a>" +
                     "<button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='" + message.id + "' data-name='" + message.category_name + "'><span class='glyphicon glyphicon-trash'></span></button> " +
                     "<button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='" + message.id + "' data-name='" + message.category_name + "'><span class='glyphicon glyphicon-edit'></span></button>" +
-                "</li>" +
-            "</ul>");
+                "</td>" +
+            "</tr>");
         })
     }
 

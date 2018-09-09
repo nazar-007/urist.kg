@@ -7,6 +7,7 @@ class Themes extends CI_Controller {
         parent::__construct();
         $this->load->model('categories_model');
         $this->load->model('themes_model');
+        $this->load->model('comments_model');
     }
     public function Index($category_id) {
         $data = array(
@@ -31,6 +32,7 @@ class Themes extends CI_Controller {
         $one_theme = array (
             'categories' => $this->categories_model->getCategories(),
             'one_theme' => $this->themes_model->getOneThemeById($theme_id),
+            'comments' => $this->comments_model->getCommentsByThemeId($theme_id),
             'csrf_hash' => $this->security->get_csrf_hash(),
             "theme_id" => $theme_id
         );
@@ -67,6 +69,38 @@ class Themes extends CI_Controller {
     }
 
     public function Sort_themes() {
+        // $order_by приходит из data-order_by при клике на соответствующую кнопку
+        $order_by = $this->input->post('order_by');
+
+        $themes = $this->themes_model->sortThemes($order_by);
+        $html = '';
+
+        foreach ($themes as $theme) {
+
+            $html .= "<tbody><tr class='success'>
+                    <td>
+                        <a id='a_$theme->id' href='" . base_url() . "one_theme/$theme->id'>" . $theme->theme_name . "</a>
+                    </td>
+                    <td>
+                        $theme->comments комментов
+                    </td>
+                    <td>
+                        $theme->views просмотров
+                    </td>
+                    <td>
+                        $theme->likes лайков
+                    </td>
+                 </tr></tbody>";
+        }
+
+        $json = array(
+            'themes' => $html,
+            'csrf_hash' => $this->security->get_csrf_hash()
+        );
+        echo json_encode($json);
+    }
+
+    public function Sort_themes_by_category_id() {
 
         // $order_by приходит из data-order_by при клике на соответствующую кнопку
         $order_by = $this->input->post('order_by');

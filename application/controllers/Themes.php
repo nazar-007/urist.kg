@@ -68,6 +68,27 @@ class Themes extends CI_Controller {
         echo json_encode($json);
     }
 
+    public function Make_main() {
+        $id = $this->input->post('id');
+
+        $update_all = array(
+            'main' => 0
+        );
+
+        $update_one = array(
+            'main' => 1
+        );
+
+
+        $this->themes_model->makeMainById($id, $update_all, $update_one);
+
+        $json = array (
+            'success' => 'Эта тема сделана главной',
+            'csrf_hash' => $this->security->get_csrf_hash()
+        );
+        echo json_encode($json);
+    }
+
     public function Sort_themes() {
         // $order_by приходит из data-order_by при клике на соответствующую кнопку
         $order_by = $this->input->post('order_by');

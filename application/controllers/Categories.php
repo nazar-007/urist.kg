@@ -35,6 +35,7 @@ class Categories extends CI_Controller {
         $data = array(
             'categories' => $cats,
             'themes' => $this->themes_model->getThemes(),
+            'main_theme' => $this->themes_model->getMainTheme(),
             'cats_themes' => $category_themes,
             'csrf_hash' => $this->_csrf['hash'],
         );

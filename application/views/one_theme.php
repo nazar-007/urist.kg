@@ -50,16 +50,20 @@
             </table>
         </div>
         <div class="col-lg-9 col-md-9">
+            <input class="csrf" type="hidden" name="csrf_test_name" value="<?php echo $csrf_hash; ?>"><br>
             <?php
             foreach ($one_theme as $info_theme) {
                 echo "<h3 class='centered'>" . $info_theme->theme_name . "</h3>";
                 echo "<h5>" . $info_theme->theme_desc . "</h5>";
+                echo "<button onclick='makeMain(this)' data-id='$info_theme->id' class='btn btn-success center-block'>Сделать главной</button>";
             }
             ?>
         </div>
     </div>
 
+
     <h3>Comments</h3>
+
     <?php
         foreach ($comments as $comment):
     ?>
@@ -75,7 +79,22 @@
     <?php endforeach;?>
 </div>
 
+<script>
 
+    function makeMain(context) {
+        var id = context.getAttribute('data-id');
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url()?>" + "themes/make_main",
+            data: {id: id, csrf_test_name: $(".csrf").val()},
+            dataType: "JSON"
+        }).done(function (message) {
+            $(".csrf").val(message.csrf_hash);
+            alert(message.success);
+        })
+    }
+
+</script>
 
 </body>
 </html>

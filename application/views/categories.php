@@ -34,12 +34,17 @@
                 ?>
 
                 <tr class="info" id='ul_<?php echo $category_id?>'>
-                          <td>
-                              <a id="a_<?php echo $category_id?>" href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a>
+                      <td>
+                          <a id="a_<?php echo $category_id?>" href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a>
+                          <?php if ($category_name != 'ПРАВИЛА ФОРУМА') {?>
                               <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-trash'></span></button>
-                              <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-edit'></span></button>
-                          </td>
-                    </tr>
+                          <?php }?>
+
+                          <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-edit' ></span ></button >
+                      </td>
+                </tr>
+
+
                 <?php }
                 ?>
 
@@ -52,6 +57,16 @@
                 <input required type="text" name="theme_name" size="70" placeholder="Поиск тем">
                 <button type="submit">Искать</button>
             </form>
+
+            <?php
+            foreach ($main_theme as $one_theme) {
+                echo "<h3 class='centered'>Главная тема: 
+                    <a href='" . base_url() . "one_theme/" .$one_theme->id . "'>" . $one_theme->theme_name ."</a>
+                   </h3>";
+            }
+            ?>
+
+
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertTheme">Добавить тему</button><br>
 
             <button onclick="sortThemes(this)" class="order_by" data-id="0" data-order_by="comments desc">Комментируемые</button>
@@ -87,6 +102,7 @@
                       <td><?php echo $cats_themes[$i]['2']['views'] ?> просмотров</td>
                       <td><?php echo $cats_themes[$i]['2']['likes'] ?> лайков</td>
                   </tr>
+
                 </tbody>
                 <?php $i++;}?>
             </table>

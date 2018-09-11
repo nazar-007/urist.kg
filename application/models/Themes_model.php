@@ -31,6 +31,7 @@ class Themes_model extends CI_Model {
         $query = $this->db->get('themes');
         return $query->result();
     }
+
     public function getViewsById($id) {
         $this->db->where('id', $id);
         $themes = $this->db->get('themes')->result();
@@ -46,6 +47,18 @@ class Themes_model extends CI_Model {
             $comments = $theme->comments;
         }
         return $comments;
+    }
+
+    public function makeMainById($id, $update_all, $update_one) {
+        $this->db->update('themes', $update_all);
+        $this->db->where('id', $id);
+        $this->db->update('themes', $update_one);
+    }
+
+    public function getMainTheme() {
+        $this->db->where('main', '1');
+        $query = $this->db->get('themes');
+        return $query->result();
     }
 
     public function searchThemesByThemeName($theme_name) {

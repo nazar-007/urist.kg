@@ -15,6 +15,10 @@
             border: 5px solid #5a0099;
             transition: 0.5s ease;
         }
+
+        .rules {
+            background-color: darksalmon;
+        }
     </style>
 
 </head>
@@ -37,18 +41,29 @@
                       <td>
                           <a id="a_<?php echo $category_id?>" href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a>
                               <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-trash'></span></button>
-                       
-
-                          <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-edit' ></span ></button >
+                              <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-edit' ></span ></button >
                       </td>
                 </tr>
 
 
                 <?php }
+
                 ?>
 
                 </tbody>
             </table>
+
+            <br><br>
+
+            <?php
+                foreach ($first_theme as $theme) {
+                    echo "<div class='rules'>
+                        <a id='first_theme' href='" . base_url() . "one_theme/" . $theme->id . "'>" . $theme->theme_name ."</a>
+                        <button class='btn btn-warning' data-toggle='modal' data-target='#updateTheme' onclick='updateThemePress(this)' data-id='" . $theme->id . "' data-theme_name='" .  $theme->theme_name. "'><span class='glyphicon glyphicon-edit'></span></button>    
+                    </div>";
+                }
+            ?>
+
         </div>
         <div class="col-lg-9 col-md-9 col-sm-3 col-xs-3">
             <form action="javascript:void(0)" onsubmit="searchThemes(this)">
@@ -217,6 +232,35 @@
 </div>
 
 
+<div class="modal fade" id="updateTheme" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Редактирование темы</h4>
+            </div>
+            <div class="modal-body">
+                <form action="javascript:void(0)" onsubmit="updateTheme(this)">
+                    <div class="form-group">
+                        <input class="csrf" type="hidden" name="csrf_test_name" value="<?php echo $csrf_hash; ?>"><br>
+                        <input type="hidden" name="id" id="update_theme_id">
+                        <label>Name:</label>
+                        <input name="theme_name" id="update_theme_name" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-warning center-block" type="submit">Редактировать</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
 
     function searchThemes(context) {
@@ -232,6 +276,34 @@
         }).done(function (message) {
             $(".csrf").val(message.csrf_hash); // обрати внимание, что таким образом меняются все токены CSRF c классом csrf.
             $("#table_themes").html(message.themes);
+        })
+    }
+
+
+    function updateThemePress(context) {
+        var id = context.getAttribute('data-id');
+        var theme_name = context.getAttribute('data-theme_name');
+        var update_theme_id = document.getElementById('update_theme_id');
+        var update_theme_name = document.getElementById('update_theme_name');
+        update_theme_id.value = id;
+        update_theme_name.value = theme_name;
+    }
+
+    function updateTheme(context) {
+        var form = $(context)[0];
+        var all_inputs = new FormData(form);
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url()?>" + "themes/update_theme",
+            data: all_inputs,
+            dataType: "JSON",
+            contentType: false,
+            processData: false
+        }).done(function (message) {
+            $(".csrf").val(message.csrf_hash);
+            $("#updateTheme").trigger('click');
+            document.getElementById('first_theme').classList.add('change');
+            document.getElementById('first_theme').innerHTML = message.theme_name;
         })
     }
 

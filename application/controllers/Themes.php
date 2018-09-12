@@ -13,6 +13,7 @@ class Themes extends CI_Controller {
         $data = array(
             'categories' => $this->categories_model->getCategories(),
             'themes' => $this->themes_model->getThemesByCategoryId($category_id),
+            'first_theme' => $this->themes_model->getFirstTheme(),
             'csrf_hash' => $this->security->get_csrf_hash(),
 
             // current_id нужен для того, чтобы обвести текущую категорию в чёрный квадратик
@@ -195,16 +196,18 @@ class Themes extends CI_Controller {
     public function update_theme() {
         $id = $this->input->post('id');
         $theme_name = $this->input->post('theme_name');
-        $forum_id = $this->input->post('forum_id');
+        $category_id = $this->input->post('category_id');
+        $category_id = $category_id != null ? $category_id : 0;
 
         $data = array(
             'theme_name' => $theme_name,
-            'forum_id' => $forum_id
+            'category_id' => $category_id
         );
         $this->themes_model->updateThemeById($id, $data);
 
         $json = array(
             'id' => $id,
+            'theme_name' => $theme_name,
             'csrf_hash' => $this->security->get_csrf_hash()
         );
         echo json_encode($json);

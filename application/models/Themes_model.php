@@ -31,6 +31,11 @@ class Themes_model extends CI_Model {
         $query = $this->db->get('themes');
         return $query->result();
     }
+    public function getFirstTheme() {
+        $this->db->where('id', 1);
+        $query = $this->db->get('themes');
+        return $query->result();
+    }
 
     public function getViewsById($id) {
         $this->db->where('id', $id);

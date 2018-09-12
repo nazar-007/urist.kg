@@ -36,9 +36,8 @@
                 <tr class="info" id='ul_<?php echo $category_id?>'>
                       <td>
                           <a id="a_<?php echo $category_id?>" href="<?php echo base_url()?>themes/<?php echo $category->id?>"><?php echo $category->category_name?></a>
-                          <?php if ($category_name != 'ПРАВИЛА ФОРУМА') {?>
                               <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-trash'></span></button>
-                          <?php }?>
+                       
 
                           <button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateCategory' data-id='<?php echo $category_id?>' data-name='<?php echo $category_name?>'><span class='glyphicon glyphicon-edit' ></span ></button >
                       </td>
@@ -75,7 +74,6 @@
             <table class="table table-bordered" id="table_themes"> 
                 <?php
                 $i = 0;
-                
                 foreach ($categories as $category) {
                 ?>
                 <thead>
@@ -84,6 +82,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                    <?php if($cats_themes[$i]){?>
                   <tr>
                       <td><?php echo $cats_themes[$i]['0']['theme_name'] ?></td>
                       <td><?php echo $cats_themes[$i]['0']['comments'] ?> комментов</td>
@@ -104,7 +103,7 @@
                   </tr>
 
                 </tbody>
-                <?php $i++;}?>
+                <?php }$i++;}?>
             </table>
 
         </div>

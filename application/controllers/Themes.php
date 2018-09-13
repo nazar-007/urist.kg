@@ -69,6 +69,36 @@ class Themes extends CI_Controller {
         echo json_encode($json);
     }
 
+    public function search_themes_by_category_id() {
+        $category_id = $this->input->post('category_id');
+        $theme_name = $this->input->post('theme_name');
+        $themes = $this->themes_model->searchThemesByThemeNameAndCategoryId($theme_name, $category_id);
+        $html = '<h3>Результаты по поиску ' . $theme_name . '</h3>';
+
+        foreach ($themes as $theme) {
+            $html .= "<tbody><tr class='success'>
+                    <td>
+                        <a id='a_$theme->id' href='" . base_url() . "one_theme/$theme->id'>" . $theme->theme_name . "</a>
+                    </td>
+                    <td>
+                        $theme->comments комментов
+                    </td>
+                    <td>
+                        $theme->views просмотров
+                    </td>
+                    <td>
+                        $theme->likes лайков
+                    </td>
+                 </tr></tbody>";
+        }
+
+        $json = array(
+            'themes' => $html,
+            'csrf_hash' => $this->security->get_csrf_hash()
+        );
+        echo json_encode($json);
+    }
+
     public function Make_main() {
         $id = $this->input->post('id');
 
@@ -181,8 +211,6 @@ class Themes extends CI_Controller {
 
     public function delete_theme() {
         $id = $this->input->post('id');
-        // при удалении темы удаляю все комменты данной темы
-
         $this->comments_model->deleteCommentsByThemeId($id);
         $this->themes_model->deleteThemeById($id);
 
@@ -196,11 +224,13 @@ class Themes extends CI_Controller {
     public function update_theme() {
         $id = $this->input->post('id');
         $theme_name = $this->input->post('theme_name');
+        $theme_desc = $this->input->post('theme_desc');
         $category_id = $this->input->post('category_id');
         $category_id = $category_id != null ? $category_id : 0;
 
         $data = array(
             'theme_name' => $theme_name,
+            'theme_desc' => $theme_desc,
             'category_id' => $category_id
         );
         $this->themes_model->updateThemeById($id, $data);
@@ -208,6 +238,7 @@ class Themes extends CI_Controller {
         $json = array(
             'id' => $id,
             'theme_name' => $theme_name,
+            'category_id' => $category_id,
             'csrf_hash' => $this->security->get_csrf_hash()
         );
         echo json_encode($json);

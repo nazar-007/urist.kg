@@ -72,6 +72,13 @@ class Themes_model extends CI_Model {
         return $query->result();
     }
 
+    public function searchThemesByThemeNameAndCategoryId($theme_name, $category_id) {
+        $this->db->like('theme_name', $theme_name);
+        $this->db->where('category_id', $category_id);
+        $query = $this->db->get('themes');
+        return $query->result();
+    }
+
     public function sortThemes($order_by) {
         $this->db->order_by($order_by);
         $query = $this->db->get('themes');

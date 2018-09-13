@@ -24,6 +24,11 @@ class Comments_model extends CI_Model {
         $this->db->delete('comments');
     }
 
+    public function deleteCommentsByThemeId($theme_id) {
+        $this->db->where('theme_id', $theme_id);
+        $this->db->delete('comments');
+    }
+
     public function updateCommentById($id, $data) {
         $this->db->where('id', $id);
         $this->db->update('comments', $data);

@@ -1,29 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class News extends CI_Controller {
+class Lawyers extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('news_model');
+        $this->load->model('lawyers_model');
+        $this->load->model('experiences_model');
     }
     public function Index() {
         $data = array(
-            'news' => $this->news_model->getNews(),
+            'lawyers' => $this->lawyers_model->getLawyers(),
             'csrf_hash' => $this->security->get_csrf_hash(),
         );
-        $this->load->view('news', $data);
+        $this->load->view('lawyers', $data);
     }
-    public function One_new($new_id) {
-        $one_new = array (
-            'one_new' => $this->news_model->getOneNewById($new_id),
+    public function One_lawyer($lawyer_id) {
+        $one_lawyer = array (
+            'one_lawyer' => $this->lawyers_model->getOneLawyerById($lawyer_id),
+            'experiences' => $this->experiences_model->getExperiencesByLawyerId($lawyer_id),
             'csrf_hash' => $this->security->get_csrf_hash(),
-            "new_id" => $new_id
+            "lawyer_id" => $lawyer_id
         );
-        $this->load->view('one_new', $one_new);
+        $this->load->view('one_lawyer', $one_lawyer);
     }
 
-    public function insert_new() {
+    public function insert_lawyer() {
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['encrypt_name'] = true;
@@ -38,36 +40,41 @@ class News extends CI_Controller {
         }
 
         $name = $this->input->post('name');
-        $text = $this->input->post('text');
-        $time = date("H:i:s");
+        $work = $this->input->post('work');
+        $mail = $this->input->post('mail');
+        $phone = $this->input->post('phone');
 
         $data = array(
             'name' => $name,
-            'text' => $text,
-            'time' => $time,
-            'img' => $img
+            'img' => $img,
+            'work' => $work,
+            'mail' => $mail,
+            'phone' => $phone
         );
-        $this->news_model->insertNew($data);
+        $this->lawyers_model->insertLawyer($data);
         $insert_id = $this->db->insert_id();
 
         $json = array (
             'id' => $insert_id,
             'name' => $name,
-            'text' => $text,
             'img' => $img,
+            'work' => $work,
+            'mail' => $mail,
+            'phone' => $phone,
             'csrf_hash' => $this->security->get_csrf_hash()
         );
         echo json_encode($json);
     }
 
-    public function delete_new() {
+    public function delete_lawyer() {
         $id = $this->input->post('id');
-        $img = $this->news_model->getImgById($id);
+        $img = $this->lawyers_model->getImgById($id);
 
         if ($img != 'default.jpg') {
             unlink("./uploads/$img");
         }
-        $this->news_model->deleteNewById($id);
+        $this->lawyers_model->deleteLawyerById($id);
+        $this->experiences_model->deleteExperiencesByLawyerId($id);
 
         $json = array(
             'id' => $id,
@@ -76,13 +83,23 @@ class News extends CI_Controller {
         echo json_encode($json);
     }
 
-    public function update_new() {
+    public function update_lawyer($lawyer_id) {
+        $data = array (
+            'one_lawyer' => $this->lawyers_model->getOneLawyerById($lawyer_id),
+            'experiences' => $this->experiences_model->getExperiencesByLawyerId($lawyer_id),
+            'csrf_hash' => $this->security->get_csrf_hash(),
+            "lawyer_id" => $lawyer_id
+        );
+        $this->load->view('update_lawyer', $data);
+    }
 
+    public function update_lawyer_process() {
         $id = $this->input->post('id');
         $name = $this->input->post('name');
-        $text = $this->input->post('text');
-        $time = date("H:i:s");
-        $current_img = $this->news_model->getImgById($id);
+        $work = $this->input->post('work');
+        $mail = $this->input->post('mail');
+        $phone = $this->input->post('phone');
+        $current_img = $this->lawyers_model->getImgById($id);
 
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -102,17 +119,13 @@ class News extends CI_Controller {
 
         $data = array(
             'name' => $name,
-            'text' => $text,
-            'time' => $time,
-            'img' => $img
+            'img' => $img,
+            'work' => $work,
+            'mail' => $mail,
+            'phone' => $phone
         );
-        $this->news_model->updateNewById($id, $data);
+        $this->lawyers_model->updateLawyerById($id, $data);
 
-        $json = array (
-            'id' => $id,
-            'name' => $name,
-            'csrf_hash' => $this->security->get_csrf_hash()
-        );
-        echo json_encode($json);
+        redirect(base_url() . "lawyers");
     }
 }

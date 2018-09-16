@@ -13,7 +13,7 @@ $route['update_lawyer/(:num)'] = 'lawyers/update_lawyer/$1';
 $route['update_lawyer_process'] = 'lawyers/update_lawyer_process';
 
 $route['pdf_category'] = 'pdf_file/pdf_cats';
-$route['pdf_category_files/(:num)'] = 'pdf_file/pdf_one_cats/$1';
+$route['pdf_category_files'] = 'pdf_file/pdf_one_cats';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

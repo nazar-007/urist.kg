@@ -11,8 +11,7 @@ class Pdf_model extends CI_Model {
         $query = $this->db->get('pdf_category');
         return $query->result_array();
     }
-    public function getOnePdfCategories($id) {
-        $this->db->where('id',$id);
+    public function getOnePdfCategories() {
         $query = $this->db->get('pdf_category_files');
         return $query->result_array();
     }
@@ -40,28 +39,35 @@ class Pdf_model extends CI_Model {
     }
     public function insert_category_file($mass){
             $category_name = $mass['category_name'];
-            $category_id = $mass['main_category_id'];
  
+        $config['upload_path'] = './pdf_files/';
+        $config['allowed_types'] = 'docx|pdf';
+        $config['encrypt_name'] = true;
+        $config['max_size'] = 0;
+        $this->load->library('upload', $config);
+        $this->upload->do_upload('userfile');
+            $upload_image = $this->upload->data();
+            $img = $upload_image['file_name'];
         
         
-            $config['upload_path']          = "./pdf_files";
-            $config['allowed_types']        = 'pdf';
-            $config['max_size']             = 100000;
-            $config['encrypt_name']             = TRUE;
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('userfile');
-            $photo_info = $this->upload->data();
-
+        
+//            $config['upload_path']          = "./pdf_files/";
+//            $config['allowed_types']        = 'pdf|docx|jpg';
+//            $config['max_size']             = 100000;
+//            $config['encrypt_name']             = TRUE;
+//            $this->load->library('upload', $config);
+//           
+//            $photo_info = $this->upload->data();
+            
             $data = array(
                 'name' => $category_name,
-                'route' => $photo_info['file_name'],
-                'cats_id' => $category_id,
+                'route' => $img,
             );
 
             
             $this->db->insert('pdf_category_files', $data);
             $last_id =    $this->db->insert_id();
-            $massiv['img'] = base_url().'pdf_files/'.$photo_info['file_name'];
+            $massiv['img'] = base_url().'pdf_files/'.$upload_image['file_name'];
             $massiv['name'] = $category_name;
             $massiv['token'] = $this->security->get_csrf_hash();
             $massiv['id'] = $last_id;

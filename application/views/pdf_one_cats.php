@@ -30,9 +30,6 @@
             <table class="table table-bordered" id="table_themes" style="background-color:white;"> 
                 <thead>
                   <tr>
-                    <th colspan="3" style="background-color:white;"><?php echo $parent_cat[0]['name']?></th>
-                  </tr>
-                  <tr>
                     <th  style="background-color:white;">НАЗВАНИЕ</th>
                     <th colspan="2" style="background-color:white;">РЕДАКТИРОВАТЬ</th>
                   </tr>
@@ -44,8 +41,8 @@
                   <tr>
                       <td><?php echo $category['name'] ?></td>
       
-                      <td><button  data-id="<?php echo $category['id'] ?>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCategory" onclick="updateThemeFirst(this)">Удалить категорию</button></td>
-                       <td><a href="<?php echo base_url()?>pdf_category_files/<?php echo $category['id'] ?>"><button type="button" class="btn btn-success"  onclick="updateThemeFirst(this)">Скачать</button></a></td>
+                      <td><button  data-id="<?php echo $category['id'] ?>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCategory" onclick="updateThemeFirst(this)">Удалить файл</button></td>
+                       <td><a href="<?php echo base_url()?>pdf_files/<?php echo $category['route']?>"><button type="button" class="btn btn-success"  onclick="updateThemeFirst(this)">Скачать</button></a></td>
                   </tr>
                 <?php $i++;}?>
                 </tbody>
@@ -64,7 +61,6 @@
             <div class="modal-body">
                 <form method="post" action="javascript:void(0)" onSubmit="insertThemeFile(this)">
                     <input type="hidden" class="csrf" name="csrf_test_name" value="<?php echo $csrf_hash?>">
-                    <input type="hidden" id="main_category_id" name="main_category_id" value="<?php echo $parent_cat[0]['id']?>">
                     <label>Название файла:</label>
                     <input required type="text" class="form-control" name="category_name">
                     <label>Файл:</label>

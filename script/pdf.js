@@ -34,7 +34,9 @@ function insertThemeFile(context) {
         $(".csrf").val(message.csrf_hash); // обрати внимание, что таким образом меняются все токены CSRF c классом csrf.
         $(".form-control").val('');
         $("#insertTheme").trigger('click');
-        $("#table_themes_body").append("<tr><td style='background-color:white;'>10</td><td>"+message.category_dis+"</td><td>"+message.category_name+"</td><td><button data-id="+message.id+" data-dis="+message.dis+" data-name="+message.name+" type='button' class='btn btn-info' data-toggle='modal' data-target='#updateTheme' onclick='updateThemeFirst(this)'>Изменить категорию</button></td></tr>");
+        $("#table_themes_body").append("<tr><td style='background-color:white;'>"+message.name+"</td><td><button data-id="+message.id+" type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategory' onclick='updateThemeFirst(this)'>Удалить файл</button></td><td><a href='"+url+"pdf_files/"+message.route+"'><button data-id="+message.id+"  type='button' class='btn btn-success' >Скачать</button></td></a></tr>");
+        
+
     });
 }
 function deletePress(context) {

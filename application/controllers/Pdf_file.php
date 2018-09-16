@@ -31,12 +31,11 @@ class Pdf_file extends CI_Controller {
         );
         $this->load->view('pdf_cats', $data);
     }
-    public function pdf_one_cats($id) {
-        $cats = $this->pdf_model->getOnePdfCategories($id);
-        $main_cats = $this->pdf_model->getParentPdfCategories($id);
+    public function pdf_one_cats() {
+        $cats = $this->pdf_model->getOnePdfCategories();
+        //$main_cats = $this->pdf_model->getParentPdfCategories($id);
         $data = array(
             'categories' => $cats,
-            'parent_cat' => $main_cats,
             'csrf_hash' => $this->_csrf['hash'],
         );
         $this->load->view('pdf_one_cats', $data);
@@ -52,14 +51,38 @@ class Pdf_file extends CI_Controller {
     }
     public function insert_category_file(){
         $category_name = $this->input->post('category_name');
-        $category_id = $this->input->post('main_category_id');
         $data = array(
             'category_name' => $category_name,
-            'main_category_id' => $category_id,
         );
+//        echo "<pre>";
+//            print_r($_FILES['userfile']);
+//        echo "<pre>";
         echo $this->pdf_model->insert_category_file($data);
     }
-    
+    public function download_file(){
+            $file = 'pdf_files/f0024a629862a4c15e6ec64bf4a6484d.jpg';
+            echo $file;
+
+//             if (ob_get_level()) {
+//                  ob_end_clean();
+//                }
+//                // заставляем браузер показать окно сохранения файла
+//                header('Content-Description: File Transfer');
+//                header('Content-Type: application/octet-stream');
+//                header('Content-Disposition: attachment; filename=' . basename($file));
+//                header('Content-Transfer-Encoding: binary');
+//                header('Expires: 0');
+//                header('Cache-Control: must-revalidate');
+//                header('Pragma: public');
+//                header('Content-Length: ' . filesize($file));
+//                // читаем файл и отправляем его пользователю
+//                if ($fd = fopen($file, 'rb')) {
+//                  while (!feof($fd)) {
+//                    print fread($fd, 1024);
+//              }
+              fclose($fd);
+                  
+    }
     
     public function delete_category() {
 

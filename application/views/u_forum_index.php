@@ -1,149 +1,206 @@
-<?php 
-    
-
-?>
 <!DOCTYPE html>
-<html dir="ltr" lang="en-gb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
-<link rel="alternate" type="application/atom+xml" title="Feed - Gramziu Themes" href="https://gramziu.pl/phpBB/feed.php">		<link rel="alternate" type="application/atom+xml" title="Feed - New Topics" href="https://gramziu.pl/phpBB/feed.php?mode=topics">
-<!--[if IE]><link rel="shortcut icon" href="./styles/ariki/theme/images/favicon.ico"><![endif]-->
-<link rel="apple-touch-icon-precomposed" href="https://gramziu.pl/phpBB/styles/ariki/theme/images/apple-touch-icon-precomposed.gif">
-<link rel="icon" href="https://gramziu.pl/phpBB/styles/ariki/theme/images/favicon.gif">
-<link rel="icon" sizes="16x16" href="https://gramziu.pl/phpBB/styles/ariki/theme/images/favicon.ico">
-<link href="<?php echo base_url()?>files/css" rel="stylesheet" type="text/css" media="screen, projection">
-<link href="<?php echo base_url()?>files/font-awesome.min.css" rel="stylesheet" type="text/css" media="screen, projection">
-<link href="<?php echo base_url()?>files/stylesheet.css" rel="stylesheet" type="text/css" media="screen, projection">
-<link href="<?php echo base_url()?>files/colours.css" rel="stylesheet" type="text/css" media="screen, projection">
+<html>
+
+<head>
+    <title>Uristkg</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url()?>css/main.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>css/luxbar.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/media.css">
+    <script>
+        $(function() {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
 </head>
-<body id="phpbb" class="notouch section-index ltr hasjs" style="">
-    <a href="https://www.facebook.com/v3.1/dialog/oauth? client_id=<?php echo $f_id?>&redirect_uri=<?php echo $f_url?>" onclick="checkLoginState();">Войти через Facebook</a>
-<div id="overall-wrap">
-	<a id="top" class="anchor" accesskey="t"></a>
-	<div id="wrap-head">
-		<div id="site-nav" role="navigation">
-			<div class="chunk">
-				<div class="site-nav">
-                    <div id="site-search" role="search">
-							<fieldset>
-								<input name="keywords" type="Поиск" maxlength="128" title="Поиск" size="20" value="" placeholder="Поиск"><button type="submit" title="Поиск"></button><input type="hidden" name="style" value="3">
-							</fieldset>
-					</div>
+
+<body>
+    <div id="header"></div>
+	<!-- Page Container -->
+	<div id="demo1" class="w3-content" style="max-width:1400px;">
+		<div class="panel relative">
+			<div class="forum-head">
+				<div class="centered-text">
+					<h1 class="text-center text-uppercase display-3 font-weight-bold" style="background: #ff0000bf;">Форум</h1>
+					<ul class="nav justify-content-center">
+						<li class="nav-item">
+							<a href="#" class="nav-link text-lowercase active" style="background-color: #ff0000bf">Лучшие</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link text-lowercase ml-3" style="background-color: #ff0000bf">Популярные</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link text-lowercase ml-3" style="background-color: #ff0000bf">Новые</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-<div id="wrap-body">
-	<div class="chunk">
-		<div id="sidebar">
-	<div class="side-block">
-		<h4 class="side-block-head">Категории</h4>
-        <div class="side-block-body" id="sidebar-recent-posts">
-            <?php $i=0; foreach($cats as $row){?>
-                <div>
-                    <a class="sidebar-recent-title" href="http://urist.kg/U_forum_index_control/category/<?php echo $row['id']?>"><?php echo $row['category_name'] ?></a>
-                </div>
-            <?php }?>
-        </div>
-	</div>
-
-</div>
-
-<div id="forumlist">
-<div id="forumlist-inner">
-<?php $i=0; foreach($cats as $row){?>
-<div class="forabg">
-			<div class="inner">
-			<ul class="topiclist">
-				<li class="header">
-					<dl class="icon">
-						<dt><div class="list-inner"><a href="http://urist.kg/U_forum_index_control/category/<?php echo $row['id']?>"><?php echo $row['category_name']?></a></div></dt>
-						<dd class="topics">Просмотры</dd>
-						<dd class="posts">Комментарии</dd>
-						<dd class="lastpost">Добавление</dd>
-					</dl>
-					
-				</li>
-			</ul>
-            <?php foreach($themes[$i] as $zow){?>
-			<ul class="topiclist forums">
-                <li class="row">
-                    <dl class="icon forum_read">
-                        <dt title="No unread posts">
-                            <div class="list-inner">
-                                <a href="http://urist.kg/U_forum_index_control/theme/<?php echo $zow['id']?>" class="forumtitle"><?php echo $zow['theme_name']?></a>										
-                                <div class="responsive-show" style="display: none;">
-                                     <strong><?php echo $zow['theme_views']?></strong>
-                                </div>
-                            </div>
-                        </dt>
-                        <dd class="topics"><?php echo $zow['views']?></dd>
-                        <dd class="posts"><?php echo $zow['comments']?></dd>
-                        <dd class="lastpost">
-                            <?php echo $zow['theme_date']?>				
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
-            <?php }?>
-    </div>
-</div>
-<?php $i++;}?>
-	
-<!--
-<div class="stat-block online-list">
-    <h3>Who is online</h3>						
-    <p>
-        In total there are <strong>3</strong> users online :: 0 registered, 0 hidden and 3 guests (based on users active over the past 5 minutes)<br>Most users ever online was <strong>51</strong> on 11 Apr 2017, 10:11<br> <br>Registered users: No registered users
-        <br><em>Legend: <a style="color:#AA0000" href="https://gramziu.pl/phpBB/memberlist.php?style=3&amp;mode=group&amp;g=5">Administrators</a>, <a style="color:#00AA00" href="https://gramziu.pl/phpBB/memberlist.php?style=3&amp;mode=group&amp;g=4">Global moderators</a>, <span style="color:#9E8DA7">Bots</span>, <a href="https://gramziu.pl/phpBB/memberlist.php?style=3&amp;mode=group&amp;g=2">Registered users</a></em>				
-    </p>
-    <p id="online-list-stat">
-        Total posts <strong>68</strong> • Total topics <strong>20</strong> • Total members <strong>9</strong> • Our newest member <strong><a href="https://gramziu.pl/phpBB/memberlist.php?style=3&amp;mode=viewprofile&amp;u=2995" class="username">Sample</a></strong>
-    </p>
-</div>				
--->
-</div>
-</div>
-</div>
-</div>
-<div id="wrap-footer">
-		<div id="site-footer-nav" role="navigation">
-			<div class="chunk">
-				<ul class="site-footer-nav" role="menubar">
-					<li class="small-icon icon-home breadcrumbs">
-                        <span class="crumb">Школа Права</span>
-                    </li>
-                </ul>
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-lg-3 col-xs-12 col-md-6">
+					<div class="panel mb-3 relative">
+						<div class="inline">
+							<img src="images/rules.jpg" class="img-fluid" alt="">
+							<div class="centered-text" style="background: #ff0000bf;padding: 5px">
+								Правила
+							</div>
+							<div class="cover overlay"></div>
+						</div>
+					</div>
+					<div class="input-group">
+                        <input type="text" class="form-control" id="search" placeholder="Поиск...">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+					<div class="nav flex-column nav-pills mt-3 pill-border" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<a href="#v-pills-home" class="nav-item nav-link active" id="v-pills-home-tab" role="tab" data-toggle="pill">Lorem ipsum.</a>
+						<a href="#v-pills-home" class="nav-item nav-link" id="v-pills-home-tab" role="tab" data-toggle="pill">Lorem ipsum.</a>
+						<a href="#v-pills-home" class="nav-item nav-link" id="v-pills-home-tab" role="tab" data-toggle="pill">Lorem ipsum.</a>
+						<a href="#v-pills-home" class="nav-item nav-link" id="v-pills-home-tab" role="tab" data-toggle="pill">Lorem ipsum.</a>
+						<a href="#v-pills-home" class="nav-item nav-link" id="v-pills-home-tab" role="tab" data-toggle="pill">Lorem ipsum.</a>
+					</div>
+				</div>
+				<div class="col-lg-9 col-xs-12 col-md-6">
+					<div class="container-fluid pill-border pl-3 mb-2 pb-2 bg-panel">
+						<i class="fa fa-newspaper-o mt-2" style="font-size:2.3vw;color:red"></i>
+						<div class="title">Lorem ipsum dolor.</div>
+					</div>
+					<table class="table table-hover pill-border">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Название категории</th>
+								<th scope="col" class="d-sm-none d-md-block d-none d-xs-block">Посл.сообщение</th>
+								<th scope="col">Коммент</th>
+								<th scope="col">Просмотры</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">
+									<div><i class="fa fa-chevron-up"></i></div>
+									<div class="d-flex justify-content-center">5</div>
+									<div><i class="fa fa-chevron-down"></i></div>
+								</th>
+								<td>
+									<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti, minus.</p>
+								</td>
+								<td class="d-sm-none d-md-block d-none d-xs-block">
+									<p class="mt-2 d-flex justify-content-center">02-09-2018</p>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center mt-2">5</div>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center mt-2">
+										<div><i class="fa fa-eye"></i></div>
+										<div class="ml-2">56</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<div><i class="fa fa-chevron-up"></i></div>
+									<div class="d-flex justify-content-center">5</div>
+									<div><i class="fa fa-chevron-down"></i></div>
+								</th>
+								<td>
+									<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti, minus.</p>
+								</td>
+								<td class="d-sm-none d-md-block d-none d-xs-block">
+									<p class="mt-2 d-flex justify-content-center">02-09-2018</p>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center mt-2">5</div>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center mt-2">
+										<div><i class="fa fa-eye"></i></div>
+										<div class="ml-2">56</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<div><i class="fa fa-chevron-up"></i></div>
+									<div class="d-flex justify-content-center">5</div>
+									<div><i class="fa fa-chevron-down"></i></div>
+								</th>
+								<td>
+									<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti, minus.</p>
+								</td>
+								<td class="d-sm-none d-md-block d-none d-xs-block">
+									<p class="mt-2 d-flex justify-content-center">02-09-2018</p>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center mt-2">5</div>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center mt-2">
+										<div><i class="fa fa-eye"></i></div>
+										<div class="ml-2">56</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-</div>
-<script>
-    function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
-  window.fbAsyncInit = function() {
-      FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-      });
-    FB.init({
-      appId      : '1767351836634476',
-      xfbml      : true,
-      version    : 'v3.1'
-    });
-    FB.AppEvents.logPageView();
-  };
+		<!-- End Page Container -->
+	</div>
+	<div class="w3-dark-grey mt-5">
+		<div class="w3-container w3-content w3-padding-64 container-fluid px-5" style="max-width: 800px;" id="contact">
+			<h2 class="w3-wide w3-center">CONTACT</h2>
+			<p class="w3-opacity w3-center"><i>Fan? Drop a note!</i></p>
+			<div class="w3-row w3-padding-32">
+				<div class="w3-col m6 w3-large w3-margin-bottom">
+					<i class="fa fa-map-marker" style="width:30px"></i> Bishkek, KG<br>
+					<i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br>
+					<i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
+				</div>
+				<div class="w3-col m6">
+					<form action="/action_page.php" target="_blank">
+						<div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+							<div class="w3-half">
+								<input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+							</div>
+							<div class="w3-half">
+								<input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+							</div>
+						</div>
+						<input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+						<button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+			<i class="fa fa-facebook-official w3-hover-opacity"></i>
+			<i class="fa fa-instagram w3-hover-opacity"></i>
+			<i class="fa fa-snapchat w3-hover-opacity"></i>
+			<i class="fa fa-pinterest-p w3-hover-opacity"></i>
+			<i class="fa fa-twitter w3-hover-opacity"></i>
+			<i class="fa fa-linkedin w3-hover-opacity"></i>
+			<p class="w3-medium">Powered by <a href="http://www.it-academy.kg" target="_blank">IT Academy</a></p>
+		</footer>
+	</div>
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-</div>
 </body>
 </html>

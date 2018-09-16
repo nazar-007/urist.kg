@@ -73,11 +73,11 @@ class U_forum_index_control extends CI_Controller {
             $i++;
         }
         $mass = array( 
-                     'cats'=>$all_cats,
-                     'themes'=>$all_themes,
-                     'f_id' => $f_id,
-                     'f_secret' => $secret,
-                     'f_url' => $url,
+//                     'cats'=>$all_cats,
+//                     'themes'=>$all_themes,
+//                     'f_id' => $f_id,
+//                     'f_secret' => $secret,
+//                     'f_url' => $url,
          );
         $this->load->view('u_forum_index',$mass);
     }

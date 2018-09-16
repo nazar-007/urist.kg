@@ -30,9 +30,9 @@
                 echo "<h5>" . $info_lawyer->mail . "</h5>";
                 echo "<h5>" . $info_lawyer->phone . "</h5>";
                 echo "<img src='" . base_url() . "uploads/" . $info_lawyer->img . "' width='100'>";
-                echo "<button type='button' class='btn btn-warning'>
-                    <a href='" . base_url() . "update_lawyer/$lawyer_id'>Update</a>
-                </button>";
+                echo "<a href='" . base_url() . "update_lawyer/$lawyer_id'><button type='button' class='btn btn-warning'>
+                    Update
+                </button></a>";
             }
             ?>
         </div>

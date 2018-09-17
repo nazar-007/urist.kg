@@ -16,5 +16,11 @@ $route['update_lawyer_process'] = 'lawyers/update_lawyer_process';
 $route['pdf_category'] = 'pdf_file/pdf_cats';
 $route['pdf_category_files'] = 'pdf_file/pdf_one_cats';
 
+$route['categories'] = 'categories/index';
+$route['lawyers'] = 'lawyers/index';
+$route['news'] = 'news/index';
+$route['reports'] = 'reports/index';
+$route['themes'] = 'themes/index';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

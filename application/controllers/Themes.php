@@ -204,6 +204,7 @@ class Themes extends CI_Controller {
         $json = array (
             'id' => $insert_id,
             'theme_name' => $theme_name,
+            'theme_desc' => $theme_desc,
             'csrf_hash' => $this->security->get_csrf_hash()
         );
         echo json_encode($json);
@@ -238,6 +239,7 @@ class Themes extends CI_Controller {
         $json = array(
             'id' => $id,
             'theme_name' => $theme_name,
+            'theme_desc' => $theme_desc,
             'category_id' => $category_id,
             'csrf_hash' => $this->security->get_csrf_hash()
         );

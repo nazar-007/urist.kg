@@ -218,7 +218,7 @@
                 "<button onclick='deleteThemePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteTheme' data-id='" + message.id + "' data-name='" + message.theme_name + "'><span class='glyphicon glyphicon-trash'></span></button> " +
                 "</td> " +
                 "<td>" +
-                "<button onclick='updateThemePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateTheme' data-id='" + message.id + "' data-name='" + message.theme_name + "'><span class='glyphicon glyphicon-edit'></span></button>" +
+                "<button onclick='updateThemePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateTheme' data-id='" + message.id + "' data-theme_name='" + message.theme_name + "' data-theme_desc='" + message.theme_desc + "'><span class='glyphicon glyphicon-edit'></span></button>" +
                 "</td>" +
                 "</tr>");
         })

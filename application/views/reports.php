@@ -156,10 +156,19 @@
             $("#insertReport").trigger('click');
             $("#table_reports").append("<tr id='tr_" + message.id + "'> " +
                 "<td> " +
-                    "<a href='<?php echo base_url()?>one_report/" + message.id + "'>" + message.name + "</a> " +
+                    "<a id='a_" + message.id + "' href='<?php echo base_url()?>one_report/" + message.id + "'>" + message.name + "</a> " +
                 "</td> " +
                 "<td>" +
-                    "<button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteReport' data-id='" + message.id + "' data-name='" + message.name + "'><span class='glyphicon glyphicon-trash'></span></button>" +
+                "<span id='text_" + message.id + "'>" + message.text + "</span>" +
+                "</td>" +
+                "<td>" +
+                "<span id='date_" + message.id + "'>" + message.date + "</span>" +
+                "</td>" + "" +
+                "<td>" +
+                "<img id='img_" + message.id + "' src='<?php echo base_url()?>uploads/" + message.img + "' width='100'> " +
+                "</td>" +
+                "<td>" +
+                "<button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteReport' data-id='" + message.id + "' data-name='" + message.name + "'><span class='glyphicon glyphicon-trash'></span></button>" +
                     "<button onclick='updatePress(this)' type='button' class='btn btn-warning' data-toggle='modal' data-target='#updateReport' data-id='" + message.id + "' data-name='" + message.name + "' data-text='" + message.text + "' data-date='" + message.date + "'><span class='glyphicon glyphicon-edit'></span></button>" +
                 "</td>" +
             "</tr>");

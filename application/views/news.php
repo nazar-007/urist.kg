@@ -142,7 +142,7 @@
             $("#insertNew").trigger('click');
             $("#table_news").append("<tr id='tr_" + message.id + "'> " +
                 "<td> " +
-                    "<a href='<?php echo base_url()?>one_new/" + message.id + "'>" + message.name + "</a> " +
+                    "<a id='a_" + message.id + "' href='<?php echo base_url()?>one_new/" + message.id + "'>" + message.name + "</a> " +
                 "</td> " +
                 "<td>" +
                     "<button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteNew' data-id='" + message.id + "' data-name='" + message.name + "'><span class='glyphicon glyphicon-trash'></span></button>" +

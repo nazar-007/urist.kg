@@ -40,7 +40,7 @@ class Reports extends CI_Controller {
 
         $name = $this->input->post('name');
         $text = $this->input->post('text');
-        $date = date("H:i:s");
+        $date = date("Y-m-d");
 
         $data = array(
             'name' => $name,
@@ -55,7 +55,7 @@ class Reports extends CI_Controller {
             'id' => $insert_id,
             'name' => $name,
             'text' => $text,
-            'date' => $data,
+            'date' => $date,
             'img' => $img,
             'csrf_hash' => $this->security->get_csrf_hash()
         );

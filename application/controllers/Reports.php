@@ -6,6 +6,7 @@ class Reports extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('news_model');
+        $this->load->model('reports_model');
     }
     public function Index() {
         $data = array(

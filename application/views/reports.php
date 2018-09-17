@@ -17,7 +17,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertNew">Добавить новость</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertReport">Добавить новость</button>
             <table class="table" id="table_reports">
                 <tbody>
                     <?php

@@ -10,15 +10,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url()?>css/style.css">
-
 </head>
 <body style="background-color: #f2dede;">
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertReport">Добавить новость</button>
-            <table class="table" id="table_reports">
+        .<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertReport">Добавить репортаж</button>
+            <table class="table" id="table_reports" border="3">
+                <thead>
+                    <tr>
+                        <th>Заголовок</th>
+                        <th>Описание</th>
+                        <th>Дата</th>
+                        <th>Фото</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <?php
                     foreach ($reports as $report) {
@@ -26,6 +34,15 @@
                         echo "<tr id='tr_$report_id'>
                                 <td>
                                     <a id='a_$report_id' href='" . base_url() . "one_report/$report_id'>" . $report->name . "</a>
+                                </td>
+                                <td>
+                                    <span id='text_$report_id'>$report->text</span>
+                                </td>
+                                <td>
+                                    <span id='date_$report_id'>$report->date</span>
+                                </td>
+                                <td>
+                                    <img id='img_$report_id' src='" . base_url() . "uploads/" . $report->img . "' width='100'>
                                 </td>
                                 <td>
                                     <button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteReport' data-id='" . $report_id ."' data-name='" . $report->name ."'><span class='glyphicon glyphicon-trash'></span></button>
@@ -55,7 +72,7 @@
                     <label>Описание:</label>
                     <textarea required cols="5" class="form-control" name="text"></textarea>
                     <label>Фото:</label>
-                    <input type="file" name="report_image[]" multiple>
+                    <input type="file" name="img">
                     <button class="btn btn-success center-block">Добавить</button>
                 </form>
             </div>
@@ -107,7 +124,7 @@
                         <label for="update_text">Описание:</label>
                         <input name="text" id="update_text" type="text" class="form-control">
                         <label for="update_img">Img:</label>
-                        <input name="report_image" multiple id="update_img" type="file" class="form-control">
+                        <input name="img" id="update_img" type="file" class="form-control">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-warning center-block" type="submit">Редактировать</button>
@@ -202,6 +219,15 @@
             $("#updateReport").trigger('click');
             document.getElementById('a_' + message.id).classList.add('change');
             document.getElementById('a_' + message.id).innerHTML = message.name;
+            document.getElementById('text_' + message.id).classList.add('change');
+            document.getElementById('text_' + message.id).innerHTML = message.text;
+            document.getElementById('date_' + message.id).classList.add('change');
+            document.getElementById('date_' + message.id).innerHTML = message.date;
+
+            document.getElementById('img_' + message.id).classList.add('change');
+            var img = "<?php echo base_url()?>uploads/" + message.img;
+            document.getElementById('img_' + message.id).setAttribute('src', img);
+
         })
     }
 </script>

@@ -20,12 +20,22 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertLawyer">Добавить юриста</button>
             <div class="row">
-                <table class="table" id="table_lawyers">
+                <table border="3" class="table" id="table_lawyers">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фото</th>
+                            <th>Работа</th>
+                            <th>Почта</th>
+                            <th>Телефон</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <?php
                         foreach ($lawyers as $lawyer) {
                             $lawyer_id = $lawyer->id;
-                            echo "<tr id='tr_$lawyer_id' class='col-sm-6 col-xs-6 col-md-6 col-lg-6'>
+                            echo "<tr id='tr_$lawyer_id'>
                                         <td>
                                             <a id='a_$lawyer_id' href='" . base_url() . "one_lawyer/$lawyer_id'>" . $lawyer->name . "</a>
                                         </td>
@@ -70,7 +80,7 @@
                     <label>ФИО:</label>
                     <input required type="text" class="form-control" name="name">
                     <label>Фото:</label>
-                    <input type="file" name="img">
+                    <input required type="file" name="img">
                     <label>Место работы:</label>
                     <input required type="text" class="form-control" name="work">
                     <label>Mail:</label>
@@ -131,6 +141,12 @@
                 "<td> " +
                     "<a href='<?php echo base_url()?>one_lawyer/" + message.id + "'>" + message.name + "</a> " +
                 "</td> " +
+                "<td>" +
+                    "<img src='<?php echo base_url()?>uploads/" + message.img + "' width='100'> " +
+                "</td> " +
+                "<td>" + message.work + "</td>" +
+                "<td>" + message.mail + "</td>" +
+                "<td>" + message.phone + "</td>" +
                 "<td>" +
                     "<button onclick='deletePress(this)' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteLawyer' data-id='" + message.id + "' data-name='" + message.name + "'><span class='glyphicon glyphicon-trash'></span></button>" +
                     "<button type='button' class='btn btn-warning'>" +

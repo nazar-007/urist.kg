@@ -17,6 +17,14 @@ class Reports_model extends CI_Model {
         $query = $this->db->get('reports');
         return $query->result();
     }
+    public function getImgById($id) {
+        $this->db->where('id', $id);
+        $reports = $this->db->get('reports')->result();
+        foreach ($reports as $report) {
+            $img = $report->img;
+        }
+        return $img;
+    }
     public function insertReport($data) {
         $this->db->insert('reports', $data);
     }

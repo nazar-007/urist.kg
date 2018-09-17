@@ -21,7 +21,8 @@
 
                 echo "<h3 class='centered'>" . $info_report->name . "</h3>";
                 echo "<h5>" . $info_report->text . "</h5>";
-
+                echo "<h5>" . $info_report->date . "</h5>";
+                echo "<img src='" . base_url()."uploads/" . $info_report->img . "'>";
 
             }
             ?>

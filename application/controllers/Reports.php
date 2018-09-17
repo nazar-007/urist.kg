@@ -5,8 +5,8 @@ class Reports extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('news_model');
         $this->load->model('reports_model');
+        $this->load->model('report_images_model');
     }
     public function Index() {
         $data = array(
@@ -24,7 +24,7 @@ class Reports extends CI_Controller {
         $this->load->view('one_report', $one_report);
     }
 
-    public function insert_new() {
+    public function insert_report() {
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['encrypt_name'] = true;
@@ -40,35 +40,46 @@ class Reports extends CI_Controller {
 
         $name = $this->input->post('name');
         $text = $this->input->post('text');
-        $time = date("H:i:s");
+        $date = date("H:i:s");
 
         $data = array(
             'name' => $name,
             'text' => $text,
-            'time' => $time,
+            'date' => $date,
             'img' => $img
         );
-        $this->news_model->insertNew($data);
+        $this->reports_model->insertReport($data);
         $insert_id = $this->db->insert_id();
 
         $json = array (
             'id' => $insert_id,
             'name' => $name,
             'text' => $text,
+            'date' => $data,
             'img' => $img,
             'csrf_hash' => $this->security->get_csrf_hash()
         );
         echo json_encode($json);
     }
 
-    public function delete_new() {
+    public function delete_report() {
         $id = $this->input->post('id');
-        $img = $this->news_model->getImgById($id);
+        $imgs = $this->report_images_model->getReportImagesByReportId($id);
 
-        if ($img != 'default.jpg') {
-            unlink("./uploads/$img");
+        foreach ($imgs as $img) {
+            $img_id = $img->id;
+            if ($img != 'default.jpg') {
+                unlink("./uploads/$img");
+            }
+            $this->report_images_model->deleteReportImageById($img_id);
         }
-        $this->news_model->deleteNewById($id);
+
+        $current_img = $this->reports_model->getImgById($id);
+        if ($current_img != 'default.jpg') {
+            unlink("./uploads/$current_img");
+        }
+
+        $this->reports_model->deleteReportById($id);
 
         $json = array(
             'id' => $id,
@@ -77,13 +88,12 @@ class Reports extends CI_Controller {
         echo json_encode($json);
     }
 
-    public function update_new() {
-
+    public function update_report() {
         $id = $this->input->post('id');
         $name = $this->input->post('name');
         $text = $this->input->post('text');
-        $time = date("H:i:s");
-        $current_img = $this->news_model->getImgById($id);
+        $date = date("Y-m-d");
+        $current_img = $this->reports_model->getImgById($id);
 
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -104,14 +114,17 @@ class Reports extends CI_Controller {
         $data = array(
             'name' => $name,
             'text' => $text,
-            'time' => $time,
+            'date' => $date,
             'img' => $img
         );
-        $this->news_model->updateNewById($id, $data);
+        $this->reports_model->updateReportById($id, $data);
 
         $json = array (
             'id' => $id,
             'name' => $name,
+            'text' => $text,
+            'date' => $date,
+            'img' => $img,
             'csrf_hash' => $this->security->get_csrf_hash()
         );
         echo json_encode($json);
